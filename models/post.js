@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
 
       this.belongsTo(Media, {foreignKey: 'mediaId'})
     }
-    toJSON(){
-      return{...this.get(), id:undefined,mediaId:undefined}
-    }
+    // toJSON(){
+    //   return{...this.get(), id:undefined,mediaId:undefined}
+    // }
 
   };
   Post.init({

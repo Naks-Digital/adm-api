@@ -20,11 +20,11 @@ module.exports = {
         type:DataTypes.INTEGER,
         allowNull:false
       },
-      createdAt: {
+      createdat: {
         allowNull: false,
         type: DataTypes.DATE
       },
-      updatedAt: {
+      updatedat: {
         allowNull: false,
         type: DataTypes.DATE
       }

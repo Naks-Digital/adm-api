@@ -12,83 +12,83 @@ module.exports = {
         type: DataTypes.UUID,
         defaultValue:DataTypes.UUIDV4,
       },
-      siteCode: {
+      sitecode: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      subEnvironment: {
+      subenvironment: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      stateName: {
+      statename: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      cityName: {
+      cityname: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      Location: {
+      location: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      trafficMovement: {
+      trafficmovement: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      postCode: {
+      postcode: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      Latitude: {
+      latitude: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      Longitude: {
+      longitude: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      mediaVehicle: {
+      mediavehicle: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      sizeW: {
+      sizew: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      sizeH: {
+      sizeh: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      Position: {
+      position: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      mediaType: {
+      mediatype: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      displayCost: {
+      displaycost: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      additionalSizeComments: {
+      additionalsizecomments: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      printingMaterial: {
+      printingmaterial: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      onwerOfMedia: {
+      onwerOfmedia: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      createdAt: {
+      createdat: {
         allowNull: false,
         type: DataTypes.DATE
       },
-      updatedAt: {
+      updatedat: {
         allowNull: false,
         type: DataTypes.DATE
       }
