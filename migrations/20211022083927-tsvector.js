@@ -2,26 +2,25 @@
 
 const vectorName = "search";
 
-const searchObjects = {
-  sitecode: ["Site No-7"],
-  subenvironment: ["Highway"],
-  statename: ["Delhi"],
-  cityname: ["Delhi"],
-  location: ["DND Flyway"],
-  trafficmovement: ["Delhi to Noida"],
-  postcode: ["110091"],
-  latitude: ["28.578605"],
-  longitude: ["77.277369"],
-  mediavehicle: ["Unipole"],
-  sizew: ["30"],
-  sizeh: ["15"],
-  position: ["Left"],
-  mediatype: ["Lit"],
-  displaycost: ["675000"],
-  additionalsizecomments: ["Nothing"],
-  printingmaterial: ["Blackback 280 GSM"],
-  onwerofmedia: ["Naks"],
-};
+const searchObjects = [
+  "sitecode",
+  "subenvironment",
+  "cityname",
+  "location",
+  "trafficmovement",
+  "postcode",
+  "latitude",
+  "longitude",
+  "mediavehicle",
+  "sizew",
+  "sizeh",
+  "position",
+  "mediatype",
+  "displaycost",
+  "additionalsizecomments",
+  "printingmaterial",
+  "onwerofmedia",
+];
 
 module.exports = {
   up: async (queryInterface, DataTypes) => {
@@ -78,6 +77,35 @@ module.exports = {
   },
 
   down: async (queryInterface, DataTypes) => {
+    queryInterface.sequelize.transaction((t) =>
+      Promise.all(
+        Object.keys(searchObjects).map((table) =>
+          queryInterface.sequelize
+            .query(
+              `
+          DROP TRIGGER ${table}_vector_update ON ${table};
+        `,
+              { transaction: t }
+            )
+            .then(() =>
+              queryInterface.sequelize.query(
+                `
+                DROP INDEX ${table}_search;
+              `,
+                { transaction: t }
+              )
+            )
+            .then(() =>
+              queryInterface.sequelize.query(
+                `
+                ALTER TABLE ${table} DROP COLUMN ${vectorName};
+              `,
+                { transaction: t }
+              )
+            )
+        )
+      )
+    );
     /**
      * Add reverting commands here.
      *

@@ -1,16 +1,16 @@
 const express = require('express')
-const {sequelize,Media,Post} = require('./models')
-// const user = require('./models/user')
+const {sequelize,Media} = require('./models')
+// const media = require('./models/media')
 
 const app = express()
 
 app.use(express.json())
 
 app.post('/media',async(req,res) =>{
-   const {sitecode,subenvironment,statename,cityname,location,trafficmovement,postcode,latitude,longitude,mediavehicle,sizew,sizeh,position,mediatype,displaycost,additionalsizecomments,printingmaterial,onwerOfmedia} = req.body
+   const {sitecode,subenvironment,statename,cityname,location,trafficmovement,postcode,latitude,longitude,mediavehicle,sizew,sizeh,position,mediatype,displaycost,additionalsizecomments,printingmaterial,onwerofmedia} = req.body
   try {
-    const user = await Media.create({sitecode,subenvironment,statename,cityname,location,trafficmovement,postcode,latitude,longitude,mediavehicle,sizew,sizeh,position,mediatype,displaycost,additionalsizecomments,printingmaterial,onwerOfmedia})
-    return res.json(user)
+    const media = await Media.create({sitecode,subenvironment,statename,cityname,location,trafficmovement,postcode,latitude,longitude,mediavehicle,sizew,sizeh,position,mediatype,displaycost,additionalsizecomments,printingmaterial,onwerofmedia})
+    return res.json(media)
     
   } catch (err) {
     console.log(err)
@@ -20,10 +20,10 @@ app.post('/media',async(req,res) =>{
   }
   })
 //  app.post('/posts',async(req,res) =>{
-//    const {userid,body} = req.body
+//    const {mediaid,body} = req.body
 //    try{
-//      const user = await Media.findOne({where : {id:userid}})
-//      const post = await Post.create({body,mediaId:user.id})
+//      const media = await Media.findOne({where : {id:mediaid}})
+//      const post = await Post.create({body,mediaId:media.id})
 //      return res.json(post)
 //    } catch(err){
 //      console.log(err)
@@ -34,11 +34,11 @@ app.post('/media',async(req,res) =>{
 
  app.get('/media',async(req,res) =>{
    try {
-     const users = await Media.findAll()
-     return res.json(users)
+     const media = await Media.findAll()
+     return res.json(media)
      
    } catch (err) {
-     return res.status(500).json({error: 'Something went wrong'})
+     return res.status(500).json({error: 'Something wrong'})
    }
  })
 
@@ -55,11 +55,17 @@ app.post('/media',async(req,res) =>{
 
  app.get('/media/:id', async (req,res)=>{
    const id = req.params.id
+   const calls = {
+    sitecode: req.params.sitecode,
+    location: req.params.location,
+    cityname: req.params.cityname
+   }
+
    try{
-     const user = await Media.findOne({
-       where: { id}
+     const media = await Media.findOne({
+       where: {sitecode}
      })
-     return res.json(user)
+     return res.json(media)
    }
    catch(err){
      console.log(err)
@@ -78,8 +84,8 @@ app.post('/media',async(req,res) =>{
 app.delete('/media/:id', async (req,res)=>{
   const id = req.params.id
   try{
-    const user = await Media.findOne({where:{id}})
-    await user.destroy()
+    const media = await Media.findOne({where:{id}})
+    await media.destroy()
     return res.json({message: 'media deleted'})
   }
   catch(err){
@@ -90,29 +96,29 @@ app.delete('/media/:id', async (req,res)=>{
 
 app.put('/media/:id', async (req,res)=>{
   const id = req.params.id
-  const {sitecode,subenvironment,statename,cityname,location,trafficmovement  ,postcode,latitude,longitude,mediavehicle,sizew,sizeh,position,mediatype,displaycost,additionalsizecomments,printingmaterial,onwerOfmedia} = req.body
+  const {sitecode,subenvironment,statename,cityname,location,trafficmovement  ,postcode,latitude,longitude,mediavehicle,sizew,sizeh,position,mediatype,displaycost,additionalsizecomments,printingmaterial,onwerofmedia} = req.body
   try{
-    const user = await Media.findOne({where: { id},})
-    user.sitecode = sitecode
-    user.subenvironment =subenvironment
-    user.statename=statename
-    user.cityname=cityname
-    user.location=location
-    user.trafficmovement=trafficmovement
-    user.postcode=postcode
-    user.latitude =latitude
-    user.longitude =longitude
-    user.mediavehicle=mediavehicle
-    user.sizew=sizew
-    user.sizeh=sizeh
-    user.position=position
-    user.mediatype=mediatype
-    user.displaycost=displaycost
-    user.additionalsizecomments=additionalsizecomments
-    user.printingmaterial=printingmaterial
-    user.onwerOfmedia=onwerOfmedia
-    await user.save()
-    return res.json(user)
+    const media = await Media.findOne({where: { id},})
+    media.sitecode = sitecode
+    media.subenvironment =subenvironment
+    media.statename=statename
+    media.cityname=cityname
+    media.location=location
+    media.trafficmovement=trafficmovement
+    media.postcode=postcode
+    media.latitude =latitude
+    media.longitude =longitude
+    media.mediavehicle=mediavehicle
+    media.sizew=sizew
+    media.sizeh=sizeh
+    media.position=position
+    media.mediatype=mediatype
+    media.displaycost=displaycost
+    media.additionalsizecomments=additionalsizecomments
+    media.printingmaterial=printingmaterial
+    media.onwerofmedia=onwerofmedia
+    await media.save()
+    return res.json(media)
   }
   catch(err){
     console.log(err)

@@ -80,15 +80,15 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      onwerOfmedia: {
+      onwerofmedia: {
         type: DataTypes.STRING,
         allowNull:false,
       },
-      createdat: {
+      createdAt: {
         allowNull: false,
         type: DataTypes.DATE
       },
-      updatedat: {
+      updatedAt: {
         allowNull: false,
         type: DataTypes.DATE
       }

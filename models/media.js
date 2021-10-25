@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Post}) {
-       // define association here
-      //MediaId
-      this.hasMany(Post, {foreignKey: 'mediaId'})
-    }
+    // static associate({Post}) {
+    //    // define association here
+    //   //MediaId
+    //   this.hasMany(Post, {foreignKey: 'mediaId'})
+    // }
 
     // toJSON(){
     //   return{...this.get(), id:undefined}
@@ -93,7 +93,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       allowNull:false,
     },
-    onwerOfmedia: {
+    onwerofmedia: {
       type:DataTypes.STRING,
       allowNull:false,
     },
