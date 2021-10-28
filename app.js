@@ -1,6 +1,6 @@
 const express = require('express')
 const {sequelize,Media} = require('./models')
-// const media = require('./models/media')
+// const Media = require('./models/media')
 
 const app = express()
 
@@ -14,7 +14,7 @@ app.post('/media',async(req,res) =>{
     
   } catch (err) {
     console.log(err)
-    return res.status(500).json(err)
+    return res.status(200).json(err)
     
     
   }
@@ -32,7 +32,7 @@ app.post('/media',async(req,res) =>{
 //    }
 //  })
 
- app.get('/media',async(req,res) =>{
+ app.get('/medialist',async(req,res) =>{
    try {
      const media = await Media.findAll()
      return res.json(media)
@@ -53,25 +53,42 @@ app.post('/media',async(req,res) =>{
 //   }
 // })
 
- app.get('/media/:id', async (req,res)=>{
-   const id = req.params.id
-   const calls = {
-    sitecode: req.params.sitecode,
-    location: req.params.location,
-    cityname: req.params.cityname
-   }
+ app.get('/media', async (req,res)=>{
+  //media/?cityname=:cityname&location=:location&sitecode=:sitecode
+  //  const cityname = req.query.Media
+  //  const id = req.params.id;
+  //  const data ={}
+   console.log("city is:" + req.query.cityname);
+  console.log("location is:" + req.query.location);
+  console.log("sitecode is:" + req.query.sitecode);
 
+    const data = {
+      cityname : req.query.cityname,
+       sitecode: req.query.sitecode,
+       location: req.query.location
+  };
+  
+   console.log(" city is:" + req.query.cityname+"location is:" + req.query.location+"sitecode is:" + req.query.sitecode);
+   console.log(data);
    try{
-     const media = await Media.findOne({
-       where: {sitecode}
+     const media = await Media.findAndCountAll({
+      //  "SELECT * FROM mediaDetails WHERE cityname || '' || location || sitecode $1"
+       where: {
+        cityname:data.cityname,
+         location:data.location,
+         sitecode:data.sitecode
+       }
      })
      return res.json(media)
+
    }
    catch(err){
      console.log(err)
-     return res.status(500).json({error: 'Something went wrong'})
-   }
+     return res.status(200).json({error: 'Data Not  Found'})
+    }
+
  })
+
 // // app.get('/', (req, res) => {
 // //   res.send('Hello World!')
 // // })
@@ -80,6 +97,20 @@ app.post('/media',async(req,res) =>{
 //   req.send("Media post request")
 // })
 
+
+app.get('/media/:id', async (req,res)=>{
+  const id = req.params.id
+  try{
+    const media = await Media.findOne({
+      where: {id}
+    })
+    return res.json(media)
+  }
+  catch(err){
+    console.log(err)
+    return res.status(200).json({error: 'Something went wrong'})
+  }
+})
 
 app.delete('/media/:id', async (req,res)=>{
   const id = req.params.id
@@ -90,7 +121,7 @@ app.delete('/media/:id', async (req,res)=>{
   }
   catch(err){
     console.log(err)
-    return res.status(500).json({error: 'Something wrong'})
+    return res.status(200).json({error: 'Something wrong'})
   }
 })
 
@@ -122,22 +153,22 @@ app.put('/media/:id', async (req,res)=>{
   }
   catch(err){
     console.log(err)
-    return res.status(500).json({error: 'Something went wrong'})
+    return res.status(200).json({error: 'Something went wrong'})
   }
 })
 
-app.get('/search',(req,res,next)=>{
-const searchField = req.query.location;
-Media.find({name:{$regex: searchField,$options: '$i'}})
-        .then(data=>{
-          res.send(data);
-        })
+// app.get('/search',(req,res,next)=>{
+// const searchField = req.query.location;
+// Media.find({name:{$regex: searchField,$options: '$i'}})
+//         .then(data=>{
+//           res.send(data);
+//         })
 
-  // var regex = new RegExp(req.params.sitecode,'N');
-  // Media.find({name:regex}).then((result) =>{
-  //   res.status(500).json(result)
-  // })
-})
+//   // var regex = new RegExp(req.params.sitecode,'N');
+//   // Media.find({name:regex}).then((result) =>{
+//   //   res.status(500).json(result)
+//   // })
+// })
 
 app.listen({port:3000},async()=>{
   console.log('Server up on httm://localhost:3000')
