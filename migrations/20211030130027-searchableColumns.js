@@ -10,17 +10,20 @@ module.exports = {
         `
       )
     ).then(
-      queryInterface.sequelize.query(
-        `
+      queryInterface.sequelize
+        .query(
+          `
         update media set searchableColumns = to_tsvector(site_code|| ' ' ||city_name|| ' ' ||location);
         `
-      ).then(
-        `
+        )
+        .then(
+          `
         select * from media where searchableColumns @@to_tsquery('patna');
         `
-      ).catch(err)
+        )
+        .catch(err)
       // .error(console.log(err))
-    )
+    );
     /**
      * Add altering commands here.
      *
