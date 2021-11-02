@@ -3,6 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // return queryInterface.addColumn("media", "checkCol", Sequelize.STRING);
+    try{
     Promise.all(
       queryInterface.sequelize.query(
         `
@@ -20,10 +21,13 @@ module.exports = {
           `
         select * from media where searchableColumns @@to_tsquery('patna');
         `
-        )
-        .catch(err)
-      // .error(console.log(err))
-    );
+        ))
+    }
+     catch (err)
+    {console.error("My database is searchable column ",err);}
+    //     .catch(err)
+    //   // .error(console.log(err))
+    // );
     /**
      * Add altering commands here.
      *
