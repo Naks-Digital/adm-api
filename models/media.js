@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Media extends Model {
     /**
@@ -9,98 +7,98 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Post}) {
-       // define association here
-      //MediaId
-      this.hasMany(Post, {foreignKey: 'mediaId'})
+    static associate(models) {
+      // define association here
     }
-
-    // toJSON(){
-    //   return{...this.get(), id:undefined}
-    // }
-  };
+    toJSON(){
+      return { ...this.get(), uuid: undefined, id: undefined}
+    }
+  }
   Media.init(
     {
-       uuid:{
-         type: DataTypes.UUID,
-         defaultValue:DataTypes.UUIDV4,
-       },
-    sitecode: {
-      type:DataTypes.STRING,
-      allowNull:false,
+      uuid: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false
+      },
+      site_code: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      sub_environment: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      state_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      city_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      location: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      traffic_movement: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      post_code: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      latitude: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      longitude: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      media_vehicle: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      size_w: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      size_h: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      position: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      media_type: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      display_cost: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      additional_size_comments: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      printing_material: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      owner_of_media: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
     },
-    subenvironment:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    statename:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    cityname:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    location: {
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    trafficmovement:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    postcode:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    latitude:{
-      type: DataTypes.STRING,
-      allowNull:false,
-    },
-    longitude:{
-      type: DataTypes.STRING,
-      allowNull:false,
-    },
-    mediavehicle:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    sizew: {
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    sizeh:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    position:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    mediatype: {
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    displaycost: {
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    additionalsizecomments: {
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    printingmaterial:{
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-    onwerOfmedia: {
-      type:DataTypes.STRING,
-      allowNull:false,
-    },
-  }, {
-    sequelize,
-    tableName: 'mediaDetails',
-    modelName: 'Media',
-  });
+    {
+      sequelize,
+      tableName: "media",
+      modelName: "Media",
+    }
+  );
   return Media;
 };
