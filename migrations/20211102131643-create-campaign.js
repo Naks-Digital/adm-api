@@ -14,19 +14,11 @@ module.exports = {
       },
       start_date: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.DATE
       },
       end_date: {
         allowNull: false,
-        type: DataTypes.STRING
-      },
-      all_sites: {
-        allowNull: false,
-        type: DataTypes.STRING
-      },
-      price_individual_sites:{
-        allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.DATE
       },
       price_whole_campaign: {
         allowNull: false,

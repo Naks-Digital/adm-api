@@ -100,5 +100,11 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Media",
     }
   );
+
+
+  Media.associate = models => {
+    Media.belongsToMany(models.campaign, { through: 'campaigns_media'});
+  };
+
   return Media;
 };

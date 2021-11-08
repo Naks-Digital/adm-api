@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class campaign extends Model {
+  class campaigns_media extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,42 +13,31 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  campaign.init({
-    campaign_name: {
+  campaigns_media.init({
+    campaigns_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    site_id:  {
       type: DataTypes.STRING,
       allowNull: false
     },
-    campaign_id:{
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    start_date: {
+    start_date:{
       type: DataTypes.DATE,
       allowNull: false
     },
-    end_date:  {
+    end_date:{
       type: DataTypes.DATE,
-      allowNull: false
-    },
-    price_whole_campaign:  {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    payment_terms:  {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    status: {
-      type: DataTypes.STRING,
       allowNull: false
     },
   }, {
     sequelize,
-    modelName: 'campaign',
+    modelName: 'campaigns_media',
   });
 
-  campaign.associate = models => {
-    campaign.belongsToMany(models.Media, { through: 'campaigns_media'});
+  campaigns_media.associate = models => {
+    campaigns_media.belongsToMany(models.campaign, { through: 'campaigns_media'});
   };
-  return campaign;
+
+  return campaigns_media;
 };
