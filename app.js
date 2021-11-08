@@ -1,5 +1,7 @@
 const { log } = require("console");
+const { response } = require("express");
 const express = require("express");
+const { request } = require("http");
 const { sequelize, Media } = require("./models");
 const media = require("./models/media");
 const { isNullOrEmpty } = require("./utils");
@@ -56,6 +58,16 @@ app.post("/media", async (req, res) => {
     return res.status(500).json(err);
   }
 });
+
+// app.post('/media', (rqst, resp) => {
+//   console.log("I got a request!!");
+//   console.log(rqst.body);
+//   resp.json({
+//     stat: "success",
+//     city: city
+//   })
+// })
+
 app.get("/media", async (req, res) => {
   try {
     var paramsString = "";
@@ -89,7 +101,8 @@ app.get("/media", async (req, res) => {
     const getMedia = await sequelize
       .query(sql, media, null, paramsString)
       .then(function (resultedData) {
-        return res.json(resultedData);
+        console.log(resultedData);
+        return res.json(resultedData[0]);
       });
   } catch (err) {
     console.log(err);
