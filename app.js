@@ -101,7 +101,7 @@ app.get("/media", async (req, res) => {
     const getMedia = await sequelize
       .query(sql, media, null, paramsString)
       .then(function (resultedData) {
-        console.log(resultedData);
+        // console.log(resultedData);
         return res.json(resultedData[0]);
       });
   } catch (err) {

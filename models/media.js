@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-    toJSON(){
-      return { ...this.get(), uuid: undefined, id: undefined}
+    toJSON() {
+      return { ...this.get(), uuid: undefined, id: undefined };
     }
   }
   Media.init(
@@ -19,79 +19,79 @@ module.exports = (sequelize, DataTypes) => {
       uuid: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        allowNull: false
+        allowNull: false,
       },
       site_code: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       sub_environment: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       state_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       city_name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       location: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       traffic_movement: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       post_code: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       latitude: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       longitude: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       media_vehicle: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       size_w: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       size_h: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       position: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       media_type: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       display_cost: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       additional_size_comments: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       printing_material: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       owner_of_media: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
     },
     {
@@ -100,5 +100,10 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Media",
     }
   );
+
+  Media.associate = (models) => {
+    Media.belongsToMany(models.campaigns, { through: "campaigns_n_media" });
+  };
+
   return Media;
 };
