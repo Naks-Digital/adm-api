@@ -2,31 +2,20 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // try{
     Promise.all(
       queryInterface.sequelize.query(
         `
-          alter table media add column searchableColumns tsvector;
-          `
+
+        update media set searchableColumns = to_tsvector GENERATED ALWAYS AS (site_code|| ' ' ||city_name|| ' ' ||location);
+       `
       )
     ).then(
       queryInterface.sequelize.query(
         `
-          update media set searchableColumns = to_tsvector(site_code|| ' ' ||city_name|| ' ' ||location);
+          STORED;
           `
       )
     );
-
-    // catch (err)
-    // {console.error("My database is totally crazy",err);}
-    // .error(console.log())
-    // .then(
-    //   `
-    // select * from media where searchableColumns @@to_tsquery('patna');
-    // `
-    // )
-    // .catch(err)
-
     /**
      * Add altering commands here.
      *
@@ -36,8 +25,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn("media", "searchablecolumns");
-
+    return queryInterface.removeColumn("media", "searchableColumns");
     /**
      * Add reverting commands here.
      *

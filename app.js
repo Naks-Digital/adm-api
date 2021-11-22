@@ -74,24 +74,28 @@ app.get("/media", async (req, res) => {
     var sql = "";
     var modifiedSiteCode = "";
     const len = Object.keys(req.query).length;
-    if (len != 0) {
+    var tmpString=Object.values(req.query).join("&");
+    var updatedParamsString = tmpString.split(" ").join("&");
+    console.log("Merra joota hai Japani:"+updatedParamsString);
+
+    if (len != 0 && req.query.site_code != null ) {
       const rem = req.query.site_code.toString();
-      console.log("djhefdgjfsb" + rem);
-      modifiedSiteCode = rem.split(" ").join("&");
-      console.log(rem.split(" ").join("&"));
-      paramsString =
-        (isNullOrEmpty(modifiedSiteCode) ? modifiedSiteCode : "") +
-        "&" +
-        (isNullOrEmpty(req.query.city_name) ? req.query.city_name : "") +
-        "&" +
-        (isNullOrEmpty(req.query.location) ? req.query.location : "");
+      // console.log("djhefdgjfsb" + rem);
+      // modifiedSiteCode = rem.split(" ").join("&");
+      // console.log(rem.split(" ").join("&"));
+      // paramsString =
+      //   (isNullOrEmpty(modifiedSiteCode) ? modifiedSiteCode : "") + " "
+        
+      //   (isNullOrEmpty(req.query.city_name) ? req.query.city_name : "") + " "
+        
+      //   (isNullOrEmpty(req.query.location) ? req.query.location : "");
       // sql =
-      //   `select state_name, traffic_movement , post_code from media where searchableColumns @@to_tsquery('` +
+      //   `select state_name, traffic_movement , post_code from media where searchable_column @@to_tsquery('` +
       //   paramsString +
       //   `')`;
       sql =
-        `select * from media where searchableColumns @@to_tsquery('` +
-        paramsString +
+        `select * from media where searchable_column @@to_tsquery('` +
+        updatedParamsString +
         `')`;
     } else {
       sql = `select * from media`;
