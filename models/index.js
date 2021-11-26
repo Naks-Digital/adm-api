@@ -1,5 +1,6 @@
 "use strict";
 
+const dbConfig = require("../config/db.config.js");
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -16,7 +17,19 @@ if (config.use_env_variable) {
     config.database,
     config.username,
     config.password,
-    config
+    config,
+    {
+      host: dbConfig.HOST,
+      dialect: dbConfig.dialect,
+      operatorsAliases: false,
+
+      pool: {
+        max: dbConfig.pool.max,
+        min: dbConfig.pool.min,
+        acquire: dbConfig.pool.acquire,
+        idle: dbConfig.pool.idle,
+      },
+    }
   );
 }
 

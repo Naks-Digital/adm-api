@@ -1,0 +1,20 @@
+site_code,sub_environment,state_name,city_name,location,traffic_movement,post_code,latitude,longitude,media_vehicle,size_w,size_h,position,media_type,display_cost,additional_size_comments,printing_material,owner_of_media
+Site No -1A,Plaza,Uttar Pradesh,Ghaziabad,Indirapuram,Ghaziabad to Noida,201014,28.6692,77.4538,Unipole,10,15,Left,Lit,900000,This is a unipole,Blackback 280 GSM,Amazon
+Site No -2A,Highway,Bihar,Patna,Gaya,Buxar to Gaya,823005,24.7914,85.0002,Unipole,12,1,Right,BackLit,1100000,This is a unipole,Blackback 280 GSM,Flipkart
+Site No -3A,NH-24,Haryana,Karnal,Gharaunda,Gharaunda to Indri,132114,29.5397,76.9731,Unipole,13,2,Left,FrontLit,1200000,This is a unipole,Blackback 280 GSM,Amazon
+Site No -4A,Plaza,Maharashtra,Pune,Ambegaon,Shirur to Ambegaon,410509,19.1132,73.7327,Unipole,14,3,Right,Non-illuminited,1400000,This is a unipole,Blackback 280 GSM,Myntra
+Site No -5A,Elevated Road,Gujarat,Ahmedabad,Aravalli,Surat to Aravalli,534230,25.2235,73.7478,Unipole,15,14,Left,Lit,1000000,This is a unipole,Blackback 280 GSM,Myntra
+Site No -6B,Highway,Rajasthan,Kota,Raipura,Manpura to Raipura,492007,25.149,75.8984,Unipole,16,15,Right,BackLit,1300000,This is a unipole,Blackback 280 GSM,Flipkart
+Site No -7B,Highway,Bihar,Patna,Gaya,Buxar to Gaya,823005,24.7914,85.0002,Unipole,17,17,Left,FrontLit,1400000,This is a unipole,Blackback 280 GSM,Amazon
+Site No -3A,Elevated Road,Uttar Pradesh,Ghaziabad,Indirapuram,Ghaziabad to Noida,201014,28.6692,77.4538,Unipole,18,15,Right,Non-illuminited,4300000,This is a unipole,Blackback 280 GSM,Myntra
+Site No -5A,Plaza,Maharashtra,Pune,Ambegaon,Shirur to Ambegaon,410509,19.1132,73.7327,Unipole,19,16,Left,Lit,200000,This is a unipole,Blackback 280 GSM,Amazon
+Site No -6,Highway,Haryana,Karnal,Gharaunda,Gharaunda to Indri,132114,29.5397,76.9731,Unipole,20,14,Right,BackLit,123000,This is a unipole,Blackback 280 GSM,Flipkart
+Site No -9C,Highway,Bihar,Patna,Gaya,Buxar to Gaya,823005,24.7914,85.0002,Unipole,11,18,Left,FrontLit,3400000,This is a unipole,Blackback 280 GSM,Flipkart
+Site No -2C,Highway,Uttar Pradesh,Ghaziabad,Indirapuram,Ghaziabad to Noida,201014,28.6692,77.4538,Unipole,12,21,Right,Non-illuminited,4300000,This is a unipole,Blackback 280 GSM,Amazon
+Site No -4B,Plaza,Uttar Pradesh,Ghaziabad,Indirapuram,Ghaziabad to Noida,201014,28.6692,77.4538,Unipole,14,14,Left,Lit,14000000,This is a unipole,Blackback 280 GSM,Myntra
+Site No -V-4C,Plaza,Gujarat,Ahmedabad,Aravalli,Surat to Aravalli,534230,25.2235,73.7478,Unipole,15,16,Right,BackLit,1200000,This is a unipole,Blackback 280 GSM,Amazon
+Site No -V-3C,Plaza,Gujarat,Ahmedabad,Aravalli,Surat to Aravalli,534230,25.2235,73.7478,Unipole,25,22,Left,FrontLit,1400000,This is a unipole,Blackback 280 GSM,Flipkart
+Site No -V-2,Elevated Road,Uttar Pradesh,Ghaziabad,Indirapuram,Ghaziabad to Noida,201014,28.6692,77.4538,Unipole,17,14,Right,Non-illuminited,1000000,This is a unipole,Blackback 280 GSM,Amazon
+Site No -V-3C,Elevated Road,Bihar,Patna,Gaya,Buxar to Gaya,823005,24.7914,85.0002,Unipole,17,13,Left,Lit,1300000,This is a unipole,Blackback 280 GSM,Amazon
+Site No -2V,Highway,Haryana,Karnal,Gharaunda,Gharaunda to Indri,132114,29.5397,76.9731,Unipole,22,24,Right,BackLit,1400000,This is a unipole,Blackback 280 GSM,Myntra
+Site No -1,Plaza,Haryana,Karnal,Gharaunda,Gharaunda to Indri,132114,29.5397,76.9731,Unipole,21,11,Left,FrontLit,4300000,This is a unipole,Blackback 280 GSM,Amazon
