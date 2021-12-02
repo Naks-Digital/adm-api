@@ -6,6 +6,7 @@ const {
   postOneSite,
   getMedia,
   getMediaById,
+  deleteSite,
 } = require("../controllers/media/csv.controller");
 
 let routes = (app) => {
@@ -14,7 +15,7 @@ let routes = (app) => {
   app.get("/media", getMedia);
   app.post("/media", postOneSite);
   app.get("/media/:id", getMediaById);
-
+  app.delete("/media", deleteSite);
   app.use("/api/csv", router);
 };
 

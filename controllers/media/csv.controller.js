@@ -7,6 +7,7 @@ const csv = require("fast-csv");
 const { sequelize } = require("../../models");
 
 const postOneSite = async (req, res) => {
+  // console.log(JSON.stringify(req.body));
   const {
     site_code,
     sub_environment,
@@ -107,12 +108,13 @@ const getMedia = async (req, res) => {
     var sql = "";
     var modifiedSiteCode = "";
     const len = Object.keys(req.query).length;
+    
     var tmpString = Object.values(req.query).join("&");
     var updatedParamsString = tmpString.split(" ").join("&");
     console.log("Merra joota hai Japani:" + updatedParamsString);
 
-    if (len != 0 && req.query.site_code != null) {
-      const rem = req.query.site_code.toString();
+    if (len != 0) {
+      // const rem = req.query.site_code.toString();
       // console.log("djhefdgjfsb" + rem);
       // modifiedSiteCode = rem.split(" ").join("&");
       // console.log(rem.split(" ").join("&"));
@@ -161,9 +163,28 @@ const getMediaById = async (req, res) => {
   }
 };
 
+const deleteSite = async (req, res) => {
+  try {
+    var tmpString = Object.values(req.query).join("&");
+    var updatedParamsString = tmpString.split(" ").join("&");
+    var sql =
+      `DELETE FROM media WHERE searchable_column @@to_tsquery('` +
+      updatedParamsString +
+      `');`;
+    await sequelize.query(sql, media).then(function (resultedData) {
+      // console.log(resultedData);
+      return res.json(resultedData[0]);
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "Something went wrong" });
+  }
+};
+
 module.exports = {
   upload,
   getMedia,
   postOneSite,
   getMediaById,
+  deleteSite,
 };
