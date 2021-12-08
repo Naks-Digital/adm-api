@@ -4,6 +4,7 @@ const media = db.Media;
 
 const fs = require("fs");
 const csv = require("fast-csv");
+// const imageParse = require("react-image-parser");
 const { sequelize } = require("../../models");
 
 const postOneSite = async (req, res) => {
@@ -58,7 +59,88 @@ const postOneSite = async (req, res) => {
   }
 };
 
-const upload = async (req, res) => {
+const uploadImage = async (req, res) => {
+  try {
+    if (req.file == undefined) {
+      return res.status(400).send("Please upload an image");
+    }
+    let imageToBeUploaded = req.file.originalname;
+    let pathOfImage =
+      __dirname +
+      "/adm-api/resources/static/assets/image_uploads/" +
+      req.file.originalname;
+    console.log(
+      "This is the image that is being uploaded: " + imageToBeUploaded,
+      req.file
+    );
+    media
+      .create({
+        site_code: "jdfjd",
+        sub_environment: "jsacj",
+        state_name: "jdbchj",
+        city_name: "jdsbhc",
+        location: "bhd",
+        traffic_movement: "jdcbj",
+        post_code: "jbvjhs",
+        latitude: "hjdbch",
+        longitude: "sdjbh",
+        media_vehicle: "jdvj",
+        size_w: "jnv",
+        size_h: "jdn",
+        position: "dj",
+        media_type: "jbfv",
+        display_cost: "hdc",
+        additional_size_comments: "cjnd",
+        printing_material: "huvc",
+        owner_of_media: "jdbv",
+        site_image: req.file,
+      })
+      .then(() => {
+        res.status(200).send({
+          message: "Uploaded the file successfully: " + imageToBeUploaded,
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: "Fail to import data into database!",
+          error: error.message,
+        });
+      });
+    // fs.createReadStream(pathOfImage)
+    //   .pipe({ headers: true })
+    //   .on("error", (error) => {
+    //     throw error.message;
+    //   })
+    //   .on("data", (image) => {})
+    //   .on("end", () => {
+    //     media
+    //       .create(imageToBeUploaded)
+    //       .then(() => {
+    //         res.status(200).send({
+    //           message: "Uploaded the file successfully: " + imageToBeUploaded,
+    //         });
+    //       })
+    //       .catch((error) => {
+    //         res.status(500).send({
+    //           message: "Fail to import data into database!",
+    //           error: error.message,
+    //         });
+    //       });
+    //   });
+
+    // res.status(200).send({
+    //   message: "Uploaded the file successfully: " + imageToBeUploaded,
+    // });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Could not upload the image: " + req.image.originalname,
+    });
+  }
+};
+
+const uploadCSV = async (req, res) => {
+  // res.set('Access-Control-Allow-Origin', '*');
   try {
     if (req.file == undefined) {
       return res.status(400).send("Please upload a CSV file!");
@@ -67,7 +149,7 @@ const upload = async (req, res) => {
     let mediaObj = [];
     let path =
       __basedir +
-      "/adm-api/resources/static/assets/uploads/" +
+      "/adm-api/resources/static/assets/csv_uploads/" +
       req.file.filename;
 
     fs.createReadStream(path)
@@ -83,8 +165,7 @@ const upload = async (req, res) => {
           .bulkCreate(mediaObj)
           .then(() => {
             res.status(200).send({
-              message:
-                "Uploaded the file successfully: " + req.file.originalname,
+              message: "Uploaded the file successfully: " + req.file.originalname,
             });
           })
           .catch((error) => {
@@ -108,7 +189,7 @@ const getMedia = async (req, res) => {
     var sql = "";
     var modifiedSiteCode = "";
     const len = Object.keys(req.query).length;
-    
+
     var tmpString = Object.values(req.query).join("&");
     var updatedParamsString = tmpString.split(" ").join("&");
     console.log("Merra joota hai Japani:" + updatedParamsString);
@@ -182,7 +263,8 @@ const deleteSite = async (req, res) => {
 };
 
 module.exports = {
-  upload,
+  uploadCSV,
+  uploadImage,
   getMedia,
   postOneSite,
   getMediaById,

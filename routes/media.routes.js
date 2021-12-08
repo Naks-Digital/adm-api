@@ -2,21 +2,24 @@ const express = require("express");
 const router = express.Router();
 const csvController = require("../controllers/media/csv.controller");
 const upload = require("../middlewares/upload");
-const {
-  postOneSite,
-  getMedia,
-  getMediaById,
-  deleteSite,
-} = require("../controllers/media/csv.controller");
 
 let routes = (app) => {
-  router.post("/upload", upload.single("file"), csvController.upload);
+  app.post(
+    "/uploadCSV",
+    upload.uploadCSVFile.single("file"),
+    csvController.uploadCSV
+  );
+  app.post(
+    "/uploadImage",
+    upload.uploadImage.single("image"),
+    csvController.uploadImage
+  );
   // router.get("/getmedia", csvController.getMedia);
-  app.get("/media", getMedia);
-  app.post("/media", postOneSite);
-  app.get("/media/:id", getMediaById);
-  app.delete("/media", deleteSite);
-  app.use("/api/csv", router);
+  app.get("/media", csvController.getMedia);
+  app.post("/media", csvController.postOneSite);
+  app.get("/media/:id", csvController.getMediaById);
+  app.delete("/media", csvController.deleteSite);
+  // app.use("/api/csv", router);
 };
 
 module.exports = routes;

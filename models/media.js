@@ -93,6 +93,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      site_image: {
+        type: DataTypes.BLOB,
+        allowNull: true,
+      },
     },
     {
       sequelize,
