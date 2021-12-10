@@ -2,6 +2,7 @@ const multer = require("multer");
 
 const csvFilter = (req, file, cb) => {
   // if (file.mimetype.includes("csv")) {
+  //   // console.log("MIMETYPE            : "+file.mimetype);
   //   cb(null, true);
   // } else {
   //   cb("Please upload only csv file.", false);
@@ -16,6 +17,8 @@ const csvFilter = (req, file, cb) => {
 var imageFilter = (req, image, cb) => {
   // if (image.mimetype.includes("png", ".jpg", "jpeg"))
   if (image.mimetype.includes("png")) {
+    
+    console.log("MIMETYPE            : "+image.mimetype);
     cb(null, true);
   }
   // var ext = image.extname(image.originalname);

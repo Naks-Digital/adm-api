@@ -6,6 +6,7 @@ const fs = require("fs");
 const csv = require("fast-csv");
 // const imageParse = require("react-image-parser");
 const { sequelize } = require("../../models");
+const { validateCSV } = require("../../utils/validateCSV");
 
 const postOneSite = async (req, res) => {
   // console.log(JSON.stringify(req.body));
@@ -145,7 +146,9 @@ const uploadCSV = async (req, res) => {
     if (req.file == undefined) {
       return res.status(400).send("Please upload a CSV file!");
     }
-
+    // console.log("TO CHECK THE REQUEST: " + req.query.site_code);
+    // req.file.map((row) => console.log(row));
+    // validateCSV(req.file)
     let mediaObj = [];
     let path =
       __basedir +
@@ -159,21 +162,42 @@ const uploadCSV = async (req, res) => {
       })
       .on("data", (row) => {
         mediaObj.push(row);
+        // console.log("TO CHECK THE REQUEST: " + row.site_code);
       })
       .on("end", () => {
-        media
-          .bulkCreate(mediaObj)
-          .then(() => {
-            res.status(200).send({
-              message: "Uploaded the file successfully: " + req.file.originalname,
+        // console.log("TO CHECK THE ARRAY: " + mediaObj);
+        // const validationError = validateCSV(mediaObj);
+        // if (validateCSV(mediaObj)) {
+        const validate = (dataArray) => {
+          for (let i = 0; i < dataArray.length; i++) {
+            const rowError = validateCSV(dataArray[i]);
+            if (rowError) {
+              return `${rowError} on row number ${i + 1}`;
+            }
+          }
+        };
+        const validationError = validate(mediaObj);
+        if (validationError) {
+          return res.status(403).json({ error: validationError });
+        } else {
+          media
+            .bulkCreate(mediaObj)
+            .then(() => {
+              res.status(200).send({
+                message:
+                  "Uploaded the file successfully: " + req.file.originalname,
+              });
+            })
+            .catch((error) => {
+              res.status(500).send({
+                message: "Fail to import data into database!",
+                error: error.message,
+              });
             });
-          })
-          .catch((error) => {
-            res.status(500).send({
-              message: "Fail to import data into database!",
-              error: error.message,
-            });
-          });
+          // } else {
+          //   return res.json({ error: validationError });
+          // }
+        }
       });
   } catch (error) {
     console.log(error);
