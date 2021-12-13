@@ -17,8 +17,7 @@ const csvFilter = (req, file, cb) => {
 var imageFilter = (req, image, cb) => {
   // if (image.mimetype.includes("png", ".jpg", "jpeg"))
   if (image.mimetype.includes("png")) {
-    
-    console.log("MIMETYPE            : "+image.mimetype);
+    console.log("MIMETYPE            : " + image.mimetype);
     cb(null, true);
   }
   // var ext = image.extname(image.originalname);
@@ -56,8 +55,8 @@ var imageStorage = multer.diskStorage({
   },
   filename: (req, image, cb) => {
     console.log("Hi I am the image name: " + image.originalname);
-    console.log("Hi I am the image: " + image);
-    cb(null, `${Date.now()}-bezkoder-${image.originalname}`);
+    cb(null, `${req.query.site_code}-image-${image.originalname}`);
+    // cb(null, `-image-${image.originalname}`);
   },
 });
 

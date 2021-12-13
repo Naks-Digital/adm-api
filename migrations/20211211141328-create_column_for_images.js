@@ -4,7 +4,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.sequelize.query(
       `
-        ALTER TABLE media add column site_image bytea;
+        ALTER TABLE media add column site_image CHARACTER VARYING[];
         `
     );
 
