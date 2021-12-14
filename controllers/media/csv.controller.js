@@ -60,6 +60,41 @@ const postOneSite = async (req, res) => {
   }
 };
 
+// const uploadImage = async (req, res) => {
+//   try {
+//     if (req.file == undefined) {
+//       return res.status(400).send("Please upload an image");
+//     }
+//     let imageToBeUploaded = req.file.originalname;
+//     let pathOfImage =
+//       __dirname +
+//       "/adm-api/resources/static/assets/image_uploads/" +
+//       req.file.originalname;
+//     console.log(
+//       "This is the image that is being uploaded: " +
+//         imageToBeUploaded +
+//         "whole file: " +
+//         req.file +
+//         "path of the image: " +
+//         pathOfImage
+//     );
+
+//     var tmpString = Object.values(req.query).join("&");
+//     var updatedParamsString = tmpString.split(" ").join("&");
+//     var sql = `UPDATE media SET site_image[0] = '{C:/Naks/adm-api/resources/static/assets/image_uploads/${req.query.site_code}-image-${imageToBeUploaded}}' WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
+//     await sequelize.query(sql, req.query.site_code).then(function () {
+//       return res.status(200).send({
+//         message: "Uploaded the file successfully: " + req.file.originalname,
+//       });
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({
+//       message: "Could not upload the image: ",
+//     });
+//   }
+// };
+
 const uploadImage = async (req, res) => {
   try {
     if (req.file == undefined) {
@@ -81,12 +116,49 @@ const uploadImage = async (req, res) => {
 
     var tmpString = Object.values(req.query).join("&");
     var updatedParamsString = tmpString.split(" ").join("&");
-    var sql = `UPDATE media SET site_image[0] = '{C:/Naks/adm-api/resources/static/assets/image_uploads/${req.query.site_code}-image-${imageToBeUploaded}}' WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
-    await sequelize.query(sql, req.query.site_code).then(function () {
-      return res.status(200).send({
-        message: "Uploaded the file successfully: " + req.file.originalname,
-      });
+    var sqlToGetArrayLength = `SELECT site_image FROM media WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
+    var sqlToSetReference;
+    let isElement;
+    await sequelize.query(sqlToGetArrayLength).then(function (response) {
+      console.log(response[0][0].site_image);
+      // console.log("length of array" + response[0][0].site_image.length);
+      // console.log("LENGTH: " + response[0].length);
+      console.log(response);
+      isElement = response[0][0].site_image;
+      // console.log("LENGTH: "+response[0][0].site_image.length);
+      // return res.status(200).send({ message: "Got the array length" });
     });
+    if (isElement != null) {
+      if (
+        isElement.indexOf(
+          "C:/Naks/adm-api/resources/static/assets/image_uploads/" +
+            req.query.site_code +
+            "-image-" +
+            imageToBeUploaded
+        ) == -1
+      ) {
+        var length = isElement.length;
+        sqlToSetReference = `UPDATE media SET site_image[${
+          length + 1
+        }] = 'C:/Naks/adm-api/resources/static/assets/image_uploads/${
+          req.query.site_code
+        }-image-${imageToBeUploaded}' WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
+      } else {
+        return res.status(200).send({
+          message: "Image already exists ",
+        });
+      }
+    } else {
+      sqlToSetReference = `UPDATE media SET site_image = '{C:/Naks/adm-api/resources/static/assets/image_uploads/${req.query.site_code}-image-${imageToBeUploaded}}' WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
+    }
+    console.log(isElement);
+    await sequelize
+      .query(sqlToSetReference, req.query.site_code)
+      .then(function () {
+        return res.status(200).send({
+          message: "Uploaded the file successfully: " + req.file.originalname,
+        });
+      });
   } catch (error) {
     console.log(error);
     res.status(500).send({
