@@ -103,22 +103,24 @@ const uploadImage = async (req, res) => {
     let imageToBeUploaded = req.file.originalname;
     let pathOfImage =
       __dirname +
-      "/adm-api/resources/static/assets/image_uploads/" +
+      "adm-frontend/public/resources/" +
       req.file.originalname;
+    // console.log(req.site_code);
     console.log(
       "This is the image that is being uploaded: " +
         imageToBeUploaded +
-        "whole file: " +
+        " whole file: " +
         req.file +
-        "path of the image: " +
+        " path of the image: " +
         pathOfImage
     );
-
+    // console.log(Object.values(req.query));
     var tmpString = Object.values(req.query).join("&");
     var updatedParamsString = tmpString.split(" ").join("&");
     var sqlToGetArrayLength = `SELECT site_image FROM media WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
     var sqlToSetReference;
     let isElement;
+    console.log("updatedParamsString" + updatedParamsString);
     await sequelize.query(sqlToGetArrayLength).then(function (response) {
       console.log(response[0][0].site_image);
       // console.log("length of array" + response[0][0].site_image.length);
@@ -131,7 +133,7 @@ const uploadImage = async (req, res) => {
     if (isElement != null) {
       if (
         isElement.indexOf(
-          "C:/Naks/adm-api/resources/static/assets/image_uploads/" +
+          "C:/Naks/adm-frontend/public/resources/" +
             req.query.site_code +
             "-image-" +
             imageToBeUploaded
@@ -140,7 +142,7 @@ const uploadImage = async (req, res) => {
         var length = isElement.length;
         sqlToSetReference = `UPDATE media SET site_image[${
           length + 1
-        }] = 'C:/Naks/adm-api/resources/static/assets/image_uploads/${
+        }] = 'C:/Naks/adm-frontend/public/resources/${
           req.query.site_code
         }-image-${imageToBeUploaded}' WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
       } else {
@@ -149,7 +151,7 @@ const uploadImage = async (req, res) => {
         });
       }
     } else {
-      sqlToSetReference = `UPDATE media SET site_image = '{C:/Naks/adm-api/resources/static/assets/image_uploads/${req.query.site_code}-image-${imageToBeUploaded}}' WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
+      sqlToSetReference = `UPDATE media SET site_image = '{C:/Naks/adm-frontend/public/resources/${req.query.site_code}-image-${imageToBeUploaded}}' WHERE searchable_column @@to_tsquery('${updatedParamsString}')`;
     }
     console.log(isElement);
     await sequelize

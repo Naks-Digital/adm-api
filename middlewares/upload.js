@@ -51,7 +51,8 @@ var csvStorage = multer.diskStorage({
 
 var imageStorage = multer.diskStorage({
   destination: (req, image, cb) => {
-    cb(null, __basedir + "/adm-api/resources/static/assets/image_uploads/");
+    cb(null, __basedir + "adm-frontend/public/resources/");
+    console.log("__basedir" + __basedir);
   },
   filename: (req, image, cb) => {
     console.log("Hi I am the image name: " + image.originalname);
