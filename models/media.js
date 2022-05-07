@@ -97,6 +97,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BLOB,
         allowNull: true,
       },
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

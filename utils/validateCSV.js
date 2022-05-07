@@ -53,5 +53,8 @@ const validateCSV = (row) => {
   if (row.owner_of_media == "") {
     return "Invalid Owner Of Media";
   }
+  if (row.status == "") {
+    return "Invalid Status";
+  }
 };
 module.exports = { validateCSV };

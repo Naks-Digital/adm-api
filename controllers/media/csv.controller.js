@@ -29,6 +29,7 @@ const postOneSite = async (req, res) => {
     additional_size_comments,
     printing_material,
     owner_of_media,
+    status,
   } = req.body;
   try {
     const postMedia = await media.create({
@@ -50,6 +51,7 @@ const postOneSite = async (req, res) => {
       additional_size_comments,
       printing_material,
       owner_of_media,
+      status,
     });
 
     return res.json(postMedia);
@@ -102,9 +104,7 @@ const uploadImage = async (req, res) => {
     }
     let imageToBeUploaded = req.file.originalname;
     let pathOfImage =
-      __dirname +
-      "adm-frontend/public/resources/" +
-      req.file.originalname;
+      __dirname + "adm-frontend/public/resources/" + req.file.originalname;
     // console.log(req.site_code);
     console.log(
       "This is the image that is being uploaded: " +
